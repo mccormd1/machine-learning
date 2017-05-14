@@ -1,0 +1,10 @@
+Generic data science work flow
+
+1. get the data
+2. explore the data
+3. clean data (missing values, formatting, restructuring)
+4. look at distributions (hists)
+5. transform skewed distributions based on distributions (log transform for skewed data)
+6. normalize data
+7. one hot encode non-numeric columns
+8. find naive predictor ability (depends on how you want to score classification)
