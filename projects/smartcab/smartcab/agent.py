@@ -56,7 +56,7 @@ class LearningAgent(Agent):
                 self.epsilon=1
             elif fulltraintrial <= self.trial <= totaltrial:
                 #self.epsilon=self.alpha**(self.trial-fulltraintrial)-.25
-                self.epsilon=.0011 #on average every trial have one random move
+                self.epsilon=.0011 #on average every 20ish trials have one random move
             else:
                 self.epsilon=0
                 #self.epsilon=self.epsilon-.02
@@ -93,7 +93,8 @@ class LearningAgent(Agent):
         ###########
         # Calculate the maximum Q-value of all actions for a given state
 
-        maxQ = self.Q[state][max(self.Q[state], key=self.Q[state].get)]
+        #maxQ = self.Q[state][max(self.Q[state], key=self.Q[state].get)]
+        maxQ = max(state.values())
 
         return maxQ 
 
@@ -138,7 +139,7 @@ class LearningAgent(Agent):
                 action = random.choice(self.valid_actions)
             else:
                 #print(max(self.Q[state], key=self.Q[state].get))
-                action = max(self.Q[state], key=self.Q[state].get)#self.Q[state].iteritems()
+                action = max(random.shuffle(self.Q[state]), key=self.Q[state].get)#self.Q[state].iteritems()
                 #print(self.Q[state][max(self.Q[state], key=self.Q[state].get)])
         return action
 
@@ -155,7 +156,8 @@ class LearningAgent(Agent):
         #   Use only the learning rate 'alpha' (do not use the discount factor 'gamma')
         #print('learning update:',self.Q[state].values(),action,self.Q[state][action])
         #print(self.trial)
-        self.Q[state][action]=(self.Q[state][action]*(1-self.alpha)+self.alpha*reward)
+        self.Q[state][action] += self.alpha*( reward - self.Q[state][action] )
+        #self.Q[state][action]=(self.Q[state][action]*(1-self.alpha)+self.alpha*reward)
         return
 
 
@@ -206,7 +208,7 @@ def run():
     #   display      - set to False to disable the GUI if PyGame is enabled
     #   log_metrics  - set to True to log trial and simulation results to /logs
     #   optimized    - set to True to change the default log file name
-    sim = Simulator(env,update_delay=.001,display=False,log_metrics=True,optimized=True)
+    sim = Simulator(env,update_delay=.001,display=False,log_metrics=False,optimized=True)
     
     ##############
     # Run the simulator
