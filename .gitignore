@@ -1,7 +1,7 @@
 # large data files in image-processing
 *.p
 *.tar.gz
-/cifar-10-batches-py/
+cifar-10-batches-py/
 
 # Mac OS
 .DS_Store
