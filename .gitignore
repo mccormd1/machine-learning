@@ -2,6 +2,7 @@
 *.p
 *.tar.gz
 cifar-10-batches-py/
+*.zip
 
 # Mac OS
 .DS_Store
